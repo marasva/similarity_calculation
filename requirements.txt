@@ -2,3 +2,9 @@
 kafka-python
 sseclient
 requests
+firebase
+python_jwt
+gcloud
+pycrypto
+requests_toolbelt
+SPARQLWrapper
