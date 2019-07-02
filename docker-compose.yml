@@ -1,0 +1,25 @@
+# docker-compose.yml
+version: '3'
+
+services:
+  wikirevision:
+    build: ./wikirevision-labeling
+    environment:
+      KAFKA_BROKER_URL: broker:9092
+      WIKIDATA_ID_TOPIC: queueing.wikidata
+  similarity:
+    build: ./similarity_calculation
+    environment:
+      KAFKA_BROKER_URL: broker:9092
+      WIKIDATA_ID_TOPIC: queueing.wikidata
+      PYTHONUNBUFFERED: 0
+  sparql:
+    build: ./sparql-service
+    environment:
+      SERVER_PORT: 3020
+
+# Give this composition access to the Kafka network
+networks:
+  default:
+    external:
+      name: kafka-network
